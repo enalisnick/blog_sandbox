@@ -5,7 +5,6 @@ import sys
 
 # get number of samples to draw
 try:
-    int(sys.argv[1])
     num_of_samples = int(sys.argv[1])
 except:
     num_of_samples = 1000
