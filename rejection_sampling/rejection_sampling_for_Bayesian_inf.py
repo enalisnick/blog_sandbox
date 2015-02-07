@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
-def norm_pdf_multivariate(x, mu, sigma):
+def multivariate_gauss_pdf(x, mu, sigma):
     size = len(x)
     if size == len(mu) and (size, size) == sigma.shape:
         det = np.linalg.det(sigma)
@@ -17,6 +17,22 @@ def norm_pdf_multivariate(x, mu, sigma):
         return norm_const * result
     else:
         raise NameError("The dimensions of the input don't match")
+
+def multivariate_cauchy_transform(mu, sigma, deg_of_freedom):
+    return np.random.multivariate_normal([0,0], sigma)*np.sqrt(deg_of_freedom/np.random.chisquare(deg_of_freedom))+mu
+
+def compute_likelihood_under_gauss(data, mu, sigma, product_flag=1):
+    mle_likelihood = 1.0
+    likelihood_per_point = []
+    for point in data:
+        l = multivariate_gauss_pdf(np.array(point)[0], mu=np.array(mu)[0], sigma=sigma)
+        mle_likelihood *= l
+        likelihood_per_point.append(l)
+    if product_flag:
+        return mle_likelihood[0,0]
+    else:
+        return likelihood_per_point
+
 
 # get number of samples to draw from posterior
 try:
@@ -41,59 +57,58 @@ for point in waldo_locations:
 mle_covar = 1./waldo_locations.shape[0] * mle_covar
 
 # calculate likelihood under MLE
-mle_likelihood = 1.0
-for point in waldo_locations:
-    mle_likelihood *= norm_pdf_multivariate(np.array(point)[0], mu=np.array(mle_mu)[0], sigma=mle_covar)
-mle_likelihood = mle_likelihood[0,0]
+max_likelihood = compute_likelihood_under_gauss(waldo_locations, mle_mu, mle_covar)
 
+# define prior a mu -- Cauchy
+degrees_of_freedom = 1 # function generalizes to other student-t's
+prior_sigma = mle_covar
+prior_mu = mle_mu
+
+accepted_samples = []
+rejected_samples = []
 # iterate until number of desired samples is reached
 while num_of_samples > 0:
     # draw a sample from the prior
-    sample = np.random.laplace(loc=mle_mu, scale=2.0, size=1)
-    numerator =
+    sample_from_q = multivariate_cauchy_transform(np.matrix(prior_mu), np.matrix(prior_sigma), degrees_of_freedom)
+    # draw height
+    sample_from_uniform = np.random.uniform(0,1)
+    # compute ratio
+    weight = compute_likelihood_under_gauss(waldo_locations, sample_from_q, np.matrix([[3,0],[0,3]])) / max_likelihood
+    print weight
+    # accept or reject
+    if sample_from_uniform <= weight:
+        accepted_samples.append(sample_from_q)
+        num_of_samples -= 1
+    else:
+        rejected_samples.append(sample_from_q)
 
-
-uniform_samples = np.random.uniform(0,1,num_of_samples)
-direct_cauchy_samples = np.random.standard_cauchy(num_of_samples)
-direct_beta_samples = np.random.beta(0.5, 0.5, num_of_samples)
-# compute inverse cdf transforms
-transformed_cauchy_samples = np.tan(np.pi*(uniform_samples - 0.5))
-transformed_beta_samples = np.power(np.sin(np.pi/2 * uniform_samples),2)
-
-# plot histograms to compare direct vs transformed
-cauchy_bins = []
-beta_bins = []
-for x in xrange(40):
-    cauchy_bins.append(x-20)
-for x in xrange(100):
-    beta_bins.append(x*10**(-2))
+# plot various graphs
 plt.figure(1)
 
-##### Cauchy Subplots #####
+##### Cauchy Prior #####
 plt.subplot(2,2,1)
-plt.title('Cauchy Direct Samples')
-n, bins, patches = plt.hist(direct_cauchy_samples, cauchy_bins, normed=1, histtype='stepfilled')
-plt.setp(patches, 'facecolor', 'k', 'alpha', 0.75)
-plt.xlim([-20,20])
+plt.title('Cauchy Prior')
+plt.scatter(accepted_samples+rejected_samples, 'ok')
+plt.xlim([0,13])
+plt.ylim([0,8])
 
+##### Max Likelihood #####
 plt.subplot(2,2,2)
-plt.title('Transformed Uniform')
-n, bins, patches = plt.hist(transformed_cauchy_samples, cauchy_bins, normed=1, histtype='stepfilled')
-plt.setp(patches, 'facecolor', 'b', 'alpha', 0.75)
-plt.xlim([-20,20])
-
-##### Beta Subplots #####
-plt.subplot(2,2,3)
-plt.title('Beta Direct Samples')
-n, bins, patches = plt.hist(direct_beta_samples, beta_bins, normed=1, histtype='stepfilled')
-plt.setp(patches, 'facecolor', 'k', 'alpha', 0.75)
-plt.xlim([0,1])
-
-plt.subplot(2,2,4)
-plt.title('Transformed Uniform')
-n, bins, patches = plt.hist(transformed_beta_samples, beta_bins, normed=1, histtype='stepfilled')
-plt.setp(patches, 'facecolor', 'b', 'alpha', 0.75)
-plt.xlim([0,1])
+plt.title('Maximum Likelihood Gaussian')
+plt.scatter(waldo_locations, 'ok')
+xi = np.linspace(0,13,1000)
+yi = np.linspace(0,8,1000)
+z = compute_likelihood_under_gauss(np.hstack(xi.T, yi.T), mle_mu, mle_covar)
+## grid the data.
+zi = griddata((x, y), z, (xi[None,:], yi[:,None]), method='cubic')
+levels = [0.2, 0.4, 0.6, 0.8, 1.0]
+# contour the gridded data, plotting dots at the randomly spaced data points.
+CS = plt.contour(xi,yi,zi,len(levels),linewidths=0.5,colors='k', levels=levels)
+#CS = plt.contourf(xi,yi,zi,15,cmap=plt.cm.jet)
+CS = plt.contourf(xi,yi,zi,len(levels),cmap=cm.Greys_r, levels=levels)
+plt.colorbar() # draw colorbar
+plt.xlim([0,13])
+plt.ylim([0,8])
 
 plt.tight_layout(pad=0.4, w_pad=0.5, h_pad=1.0)
 plt.show()
