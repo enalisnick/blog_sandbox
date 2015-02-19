@@ -69,28 +69,43 @@ rejected_samples = []
 # iterate until number of desired samples is reached
 while num_of_samples > 0:
     # draw a sample from the prior
-    sample_from_q = multivariate_cauchy_transform(np.matrix(prior_mu), np.matrix(prior_sigma), degrees_of_freedom)
+    sample_from_q = np.random.multivariate_normal([ 6.70077614,  3.87530637],[[ 13.51256941,   1.93100183],[  1.93100183 ,  3.71341179]])
+    #multivariate_cauchy_transform(np.matrix(prior_mu), np.matrix(prior_sigma), degrees_of_freedom)
     # draw height
     sample_from_uniform = np.random.uniform(0,1)
     # compute ratio
-    weight = compute_likelihood_under_gauss(waldo_locations, sample_from_q, np.matrix([[3,0],[0,3]])) / max_likelihood
+    likelihood_under_prior = compute_likelihood_under_gauss(waldo_locations, sample_from_q, mle_covar)
+    print max_likelihood
+    print likelihood_under_prior
+    print
+    weight = likelihood_under_prior / max_likelihood
     print weight
     # accept or reject
     if sample_from_uniform <= weight:
-        accepted_samples.append(sample_from_q)
+        accepted_samples.append([sample_from_q[0,0],sample_from_q[0,1]])
         num_of_samples -= 1
     else:
-        rejected_samples.append(sample_from_q)
+        rejected_samples.append([sample_from_q[0,0],sample_from_q[0,1]])
+    num_of_samples -= 1 #####
+
 
 # plot various graphs
 plt.figure(1)
 
+#print accepted_samples+rejected_samples
+#exit()
+
 ##### Cauchy Prior #####
-plt.subplot(2,2,1)
+#plt.subplot(2,2,1)
 plt.title('Cauchy Prior')
-plt.scatter(accepted_samples+rejected_samples, 'ok')
-plt.xlim([0,13])
-plt.ylim([0,8])
+samples_from_prior = np.array(accepted_samples+rejected_samples)
+print samples_from_prior[:,0]
+plt.scatter(samples_from_prior[:,0], samples_from_prior[:,1], c='k', alpha=0.55, s=30.)
+#plt.xlim([0,13])
+#plt.ylim([0,8])
+
+plt.show()
+exit()
 
 ##### Max Likelihood #####
 plt.subplot(2,2,2)
