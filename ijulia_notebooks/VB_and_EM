@@ -1,0 +1,184 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## EM and Variational Inference ##\n",
+    "By Eric Nalisnick"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "In this notebook, we show some connections between Variational Inference and the EM algorithm.  It can be shown that the evidence lower bound (ELBO) for VB is equivalent to the Q-distribution computed in EM's expectation step.  In the case of a hierarchical prior, EM can be seen as making the variational approximation $p(z,\\lambda | \\mathcal{D}) \\approx p(z|\\lambda, \\mathcal{D}) \\delta(\\lambda_{\\text{MAP}})$.   \n",
+    "\n",
+    "### Variational Bayes ###\n",
+    "In Bayesian statistics, we are concerned with finding the posterior distribuiton of the parameters--call it $p^{*}(z | \\mathcal{D})$.  This distribution is hard or impossible to compute for just about all interesting models, and so we must proceed by choosing a tractable distribution to serve as an approximate posterior.  Call the approximation $q_{\\theta}(z)$.  Learning then consists of minimizing the distance between $q$ and $p$.  We'll quantify this distance by using the Kullback-Leibler Divergence (although it isn't a proper metric):\n",
+    "\n",
+    "\\begin{equation}\n",
+    "KL(q || p^{*}) = \\int q_{\\theta}(z ) \\log \\frac{q_{\\theta}(z )}{p^{*}(z | \\mathcal{D})} dz\n",
+    "\\end{equation}\n",
+    "\n",
+    "Notice this objective still contains the problematic $p^{*}$.  One way to make $p^{*}$ easier to work with is to consider it unnormalized--$\\tilde p = Zp^{*}$ where $Z$ is the partition function $Z = \\int p(\\mathcal{D}|z)p(z)dz$.  We can continue to simplify the objective as\n",
+    "\n",
+    "\\begin{equation} \\begin{split} &=&  \\int q_{\\theta}(z ) \\log \\frac{Z q_{\\theta}(z )}{  \\tilde p(z | \\mathcal{D})} dz \\\\\n",
+    "&=& \\int q_{\\theta}(z ) [\\log q_{\\theta}(z ) - \\log \\tilde p(z | \\mathcal{D})] dz + \\log Z \\\\\n",
+    "&=& \\mathbb{E}[-\\log \\tilde p(z | \\mathcal{D}) + \\log q_{\\theta}(z ) ] + \\log Z \\\\\n",
+    "&=& KL(q || \\tilde p) + \\log Z \\end{split}\\end{equation}\n",
+    "\n",
+    "Notice $\\log Z$, the marginal likelihood, is a negative constant, allowing us to write\n",
+    "\\begin{equation}\\begin{split}\n",
+    "KL(q || p^{*}) &\\le&  KL(q || \\tilde p) \\\\\n",
+    "&=& \\mathbb{E}_{q}[\\log q_{\\theta}(z ) - \\log \\tilde p(z | \\mathcal{D})] \\\\\n",
+    "&=& \\mathbb{E}_{q}[\\log q_{\\theta}(z ) - \\log p(\\mathcal{D} | z) - \\log p(z)] \\\\\n",
+    "&=& \\mathbb{E}_{q}[- \\log p(\\mathcal{D} | z) + \\log \\frac{q_{\\theta}(z )}{p(z)}] \\\\\n",
+    "&=& \\mathbb{E}_{q}[- \\log p(\\mathcal{D} | z) ] +KL(q_{\\theta}(z ) || p(z)) \\\\\n",
+    "&=& \\mathcal{L}_{\\text{VB}}\n",
+    "\\end{split}\\end{equation}\n",
+    "\n",
+    "Thus, in variational inference, the objective to minimize, $\\mathcal{L}_{\\text{VB}}$, can be defined in two ways.  The first is the KLD between $q_{\\theta}$ and the unnormalized posterior $\\tilde p$, and the second is the expected value of the likelihood under the approximate posterior plus the KLD between the approximate posterior and the prior ($\\mathbb{E}_{q}[- \\log p(\\mathcal{D} | z) ] +KL(q_{\\theta}(z | \\mathcal{D}) || p(z))$).\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "collapsed": true
+   },
+   "source": [
+    "### Expectation-Maximization ###\n",
+    "\n",
+    "In the EM-algorithm, we wish to maximize the log likelihood with the latent variables integrated out\n",
+    "\n",
+    "\\begin{equation}\n",
+    "\\log \\int p(\\mathcal{D},z | \\alpha) dz.\n",
+    "\\end{equation}\n",
+    "\n",
+    "To this we'll introduce a distribution on $z$\n",
+    "\\begin{equation}\n",
+    "\\log \\int p(\\mathcal{D},z | \\alpha) dz = \\log \\int q(z) \\frac{p(\\mathcal{D},z | \\alpha)}{q(z)} dz.\n",
+    "\\end{equation}\n",
+    "\n",
+    "Next we can move the logarithm inside the expectation via the Gibb's inequality:\n",
+    "\\begin{equation}\n",
+    "\\log \\int q(z) \\frac{p(\\mathcal{D},z | \\alpha)}{q(z)} dz \\ge \\int q(z) \\log \\frac{p(\\mathcal{D},z | \\alpha)}{q(z)} dz = \\mathcal{L_{\\text{EM}}}.\n",
+    "\\end{equation}\n",
+    "\n",
+    "Decomposing the numerator within the logarithm gives more insight\n",
+    "\\begin{equation}\\begin{split}\n",
+    "\\log \\int q(z) \\frac{p(\\mathcal{D},z | \\alpha)}{q(z)} dz &\\ge& \\int q(z) \\log \\frac{p(\\mathcal{D},z | \\alpha)}{q(z)} dz \\\\\n",
+    "&=& \\int q(z) \\log \\frac{p(z |\\mathcal{D}, \\alpha)p(\\mathcal{D}|\\alpha)}{q(z)} dz \\\\\n",
+    "&=& \\int q(z) \\log \\frac{p(z |\\mathcal{D}, \\alpha)}{q(z)} dz + \\int q(z) \\log p(\\mathcal{D}|\\alpha) dz \\\\\n",
+    "&=& -KL (q(z) || p(z |\\mathcal{D}, \\alpha)) + \\log p(\\mathcal{D}|\\alpha).\n",
+    "\\end{split}\\end{equation}\n",
+    "\n",
+    "Notice the second term on the RHS is our desired log-likelihood without the latent variables.  Thus we can see the term contributing to the inequality is the first term, $-KL (q(z) || p(z |\\mathcal{D}, \\alpha))$.  If we set $q(z) = p(z |\\mathcal{D}, \\alpha)$, the bound is tight.  Unfortunately, $p(z |\\mathcal{D}, \\alpha)$ will likely be hard to compute so instead we'll use $q(z) = p(z |\\mathcal{D}, \\hat \\alpha_{t})$ where we've replaced $\\alpha$ with a point estimate indexed by time (iteration) $t$.  \n",
+    "\n",
+    "Now we'll plug this $q$ into the lower-bound above:\n",
+    "\\begin{equation}\\begin{split}\n",
+    "\\log \\int q(z) \\frac{p(\\mathcal{D},z | \\alpha)}{q(z)} dz &\\ge& \\int q(z) \\log \\frac{p(\\mathcal{D},z | \\alpha)}{q(z)} dz \\\\\n",
+    "&=& \\int q(z |\\mathcal{D}, \\hat \\alpha_{t}) \\log \\frac{p(\\mathcal{D},z | \\alpha)}{q(z |\\mathcal{D}, \\hat \\alpha_{t})} dz \\\\\n",
+    "&=& \\mathbb{E}_{q^{t}}[\\log p(\\mathcal{D},z | \\alpha) ] + \\mathbb{H}(q^{t}) \n",
+    "\\end{split}\\end{equation}\n",
+    "where $\\mathbb{H}(q^{t}) $ is the entropy of $q$, yielding the E-Step:\n",
+    "\n",
+    ">**E-Step:** compute $Q(\\alpha,q^{t}) = \\mathbb{E}_{q^{t}}[\\log p(\\mathcal{D},z | \\alpha) ] + \\mathbb{H}(q^{t}) $\n",
+    "\n",
+    "The M-Step is simply finding the new value of $\\alpha^{t+1}$ that maximizes $Q$.  Due to $\\mathbb{H}$ being a constant, it can be dropped:\n",
+    "\n",
+    ">**M-Step:** find $\\alpha^{t+1} = \\arg\\max_{\\alpha} Q(\\alpha,q^{t}) =  \\arg\\max_{\\alpha} \\mathbb{E}_{q^{t}}[\\log p(\\mathcal{D},z | \\alpha) ] $"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "###EM as Variational Bayes\n",
+    "\n",
+    "The equivalencies between EM and VB become apparent by considering $z$, the latent variable in EM and the prior in VB, as one and the same.  $\\alpha$, then, would be the parameters of $p(z)$ and therefore be fixed.  Then it becomes a matter of algebra to show the equivalencies in the lower-bounds:\n",
+    "\n",
+    "\\begin{equation}\\begin{split}\n",
+    "\\mathcal{L_{\\text{EM}}} &\\ge& -KL (q(z) || p(z |\\mathcal{D}, \\alpha)) + \\log p(\\mathcal{D}|\\alpha) \\\\\n",
+    "&=& -KL (q(z) || p(z |\\mathcal{D})) + \\log p(\\mathcal{D}) \\\\\n",
+    "&=& - \\int q(z) \\log \\frac{q(z)}{p(z|\\mathcal{D})} dz + \\log p(\\mathcal{D}) \\\\\n",
+    "&=& - \\int q(z) \\log \\frac{Zq(z)}{\\tilde p(z|\\mathcal{D})}dz + \\log p(\\mathcal{D}) \\\\\n",
+    "&=& - \\int q(z) \\log \\frac{q(z)}{\\tilde p(z|\\mathcal{D})}dz - \\log Z + \\log p(\\mathcal{D}) \\\\\n",
+    "&=& - \\int q(z) \\log \\frac{q(z)}{\\tilde p(z|\\mathcal{D})}dz  \\\\\n",
+    "&=& - KL (q || \\tilde p) \\le -KL(q || p^{*})\n",
+    "\\end{split}\\end{equation}\n",
+    "\n",
+    "We see that $\\mathcal{L}_{\\text{VB}}$ is equivalent to the Q-distribution computed in EM's E-step.  To make the connection explicit:\n",
+    "\n",
+    "\\begin{equation}\\begin{split}\n",
+    "\\mathcal{L}_{\\text{VB}} &=& \\mathbb{E}_{q}[\\log q_{\\theta}(z ) - \\log \\tilde p(z | \\mathcal{D})] \\\\\n",
+    "&=& \\mathbb{E}_{q}[- \\log \\tilde p(z | \\mathcal{D})] - \\mathbb{H}(q) \\\\\n",
+    "&=& \\mathbb{E}_{q}[- \\log [p(\\mathcal{D} | z)p(z)]] - \\mathbb{H}(q) \\\\\n",
+    "&=& -Q,\n",
+    "\\end{split}\\end{equation}\n",
+    "with the negative sign being due to minimizing $\\mathcal{L_{\\text{VB}}}$ vs. maximizing $\\mathcal{L_{\\text{EM}}}$.  The M-Step is different, however.  In VB, we are optimizing with respect to $\\theta$, the parameters of the variational distribution.  The entropy term, $\\mathbb{H}$, depends on $\\theta$ and thus can't be dropped in VB (except when the posterior is approximated by the delta function, as we'll see next).\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "####EM for a Hierarchical Model\n",
+    "Consider the hierarchical model \n",
+    "\\begin{equation}\n",
+    "p(z, \\lambda | \\mathcal{D}) = \\frac{p(\\mathcal{D}|z)p(z|\\lambda)p(\\lambda)}{p(\\mathcal{D})}.\n",
+    "\\end{equation}\n",
+    "\n",
+    "Proceeding with the E-Step, we compute\n",
+    "\\begin{equation}\\begin{split}\n",
+    "p(\\mathcal{D} | \\lambda)p(\\lambda) &\\ge& \\int q(z) \\log \\frac{p(\\mathcal{D},z | \\lambda)p(\\lambda)}{q(z)} dz \\\\\n",
+    "&=& \\int q(z) \\log \\frac{p(\\mathcal{D}|z)p(z| \\lambda)p(\\lambda)}{q(z)} dz \\\\\n",
+    "&=& \\int p(z|\\lambda, \\mathcal{D})\\delta(\\lambda) \\log \\frac{p(\\mathcal{D}|z)p(z| \\lambda)p(\\lambda)}{p(z|\\lambda, \\mathcal{D})\\delta(\\lambda)} dz \\\\\n",
+    "&=& \\int p(z|\\hat \\lambda, \\mathcal{D}) \\log \\frac{p(\\mathcal{D}|z)p(z| \\lambda)p(\\lambda)}{p(z|\\hat \\lambda, \\mathcal{D})} dz \\\\\n",
+    "&=& \\mathbb{E} [ \\log p(\\mathcal{D}|z)p(z| \\lambda)p(\\lambda) ]  + \\mathbb{H}(q)\n",
+    "\\end{split}\\end{equation}\n",
+    "\n",
+    "The M-Step is then\n",
+    "\\begin{equation}\\begin{split}\n",
+    "\\hat \\lambda^{t+1} &=& \\arg\\max_{\\lambda} \\mathbb{E} [ \\log  p(\\mathcal{D}|z) p(z| \\lambda)p(\\lambda) ] + \\mathbb{H}(q) \\\\\n",
+    "&=& \\arg\\max_{\\lambda} \\mathbb{E} [ \\log p(z| \\lambda)p(\\lambda) ]\n",
+    "\\end{split}\\end{equation}\n",
+    "\n",
+    "The Variational objective is \n",
+    "\\begin{equation}\\begin{split}\n",
+    "\\mathcal{L}_{\\text{VB}} &=& \\mathbb{E}[-\\log [p(\\mathcal{D}|z)p(z|\\lambda)p(\\lambda)] + \\log [p(z | \\lambda, \\mathcal{D})\\delta(\\lambda | \\mathcal{D})] ] \\\\\n",
+    "&=& \\mathbb{E}[-\\log [p(\\mathcal{D}|z)p(z|\\lambda)p(\\lambda)] + \\log p(z | \\hat \\lambda, \\mathcal{D}) ] \\\\\n",
+    "&\\propto& \\mathbb{E}[-\\log [p(z|\\lambda)p(\\lambda)]],\n",
+    "\\end{split}\\end{equation}\n",
+    "and we solve by finding\n",
+    "\\begin{equation}\\begin{split}\n",
+    "\\arg\\min_{\\lambda} \\mathbb{E}[-\\log [p(z|\\lambda)p(\\lambda)]],\n",
+    "\\end{split}\\end{equation}\n",
+    "which is equivalent to the M-Step above."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Julia 0.3.0",
+   "language": "julia",
+   "name": "julia 0.3"
+  },
+  "language_info": {
+   "name": "julia",
+   "version": "0.3.0"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}
