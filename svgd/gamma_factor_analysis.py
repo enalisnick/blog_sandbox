@@ -15,7 +15,7 @@ from autograd.scipy.special import polygamma
 from autograd import grad
 
 
-# Stein Operator
+### Stein Operator
 def steinOp(x, idx, dLogModel, params, kernel, kernelParams=None):
     returnVal = 0.
     n = len(x)
@@ -24,13 +24,25 @@ def steinOp(x, idx, dLogModel, params, kernel, kernelParams=None):
     return 1./n * returnVal
 
 
+### Kernels
+
 # Diffusion Kernel for Gamma r.v.'s via Parametrix Expansion
 # Dropped \Psi terms following (Lafferty & Lebanon, 2005)
-def gamma_diffusion(x1, x2, params={'t': .01}):
+def diffusion(x1, x2, params={'t': .01}):
     try: n = len(x1) 
     except: n = 1
-    squ_geo = np.sum((polygamma(1,x1)-polygamma(1,x2))**2) 
+    geo = polygamma(1,x1)-polygamma(1,x2)
+    squ_geo = np.sum( geo*geo )
     return (4*np.pi*params['t'])**(-n/2.) * np.exp((-.25/params['t']) * squ_geo)
+
+def rbf(x1, x2, params={'t': 1.}):
+    try: n = len(x1)
+    except: n = 1
+    d = x1 - x2
+    squ_geo = np.sum( d*d )
+    return (4*np.pi*params['t'])**(-n/2.) * np.exp((-.25/params['t']) * squ_geo)
+
+
 
 
 # Factor Analysis Model
