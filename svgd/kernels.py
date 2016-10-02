@@ -28,11 +28,17 @@ def gamma_diffusion(x1, x2, params={'t': .09}):
     squ_geo = np.sum( geo*geo )
     return np.exp((-.25/params['t']) * squ_geo)
 
-def gamma_fisher(x1, x2, params={'alpha': .1}):
-    term1 = polygamma(0,params['alpha']) - np.log(params['alpha'])
-    term1 *= term1/polygamma(1,params['alpha'])
-    term2 = (x1-1)*(x2-1)/params['alpha']
-    return term1 + term2
+def gamma_score(x, params):
+    v1 = np.log(x) - np.log(params['theta']) - polygamma(0, params['alpha'])
+    v2 = x/params['theta']**2 - params['alpha']/params['theta']
+    return np.array([[v1, v2]])
+
+def gamma_fisher(x1, x2, params={'alpha': 1., 'theta': 1.}):
+    score1 = gamma_score(x1, params)
+    score2 = gamma_score(x2, params)
+    temp = 1./params['theta']
+    fisher_info_mat = np.array([[polygamma(1,params['alpha']), temp],[temp, params['alpha']/params['theta']**2]])
+    return np.dot(np.dot(score1, inv(fisher_info_mat)), score2.T)[0,0]
 
 def gamma_prob(x1, x2, params={'p':.5}):
     return gamma(params['p']*(x1+x2-2.) + 1.) / (gamma(x1)*gamma(x2))**params['p']

@@ -5,7 +5,7 @@ import numpy as np
 from kernels import *
 
 x = np.linspace(0, 20, 1000)
-y = 1
+y = .1
 
 rbf_arr = []
 diff_arr = []
@@ -29,7 +29,7 @@ plt.plot(x, comp_arr, 'y-', linewidth=4, label="Composite")
 plt.plot(x, kld_arr, 'c-', linewidth=4, label="KLD")
 plt.plot([y]*1000, np.linspace(0, 2, 1000), 'k--', linewidth=3, alpha=.5)
 plt.xlim([0,20])
-plt.ylim([0,1.5])
+#plt.ylim([0,1.5])
 plt.xlabel(r"$x_{1}$ Values")
 plt.ylabel(r"$K(x_{1},x_{2})$")
 plt.title(r"$K(x_{1},x_{2})$ Values for $x_{2}=%.1f$"%(y))
