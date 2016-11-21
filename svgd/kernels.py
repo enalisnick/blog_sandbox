@@ -1,7 +1,14 @@
-import numpy as np
-from scipy.linalg import inv
-from scipy.special import gamma
-from scipy.special import polygamma
+import autograd.numpy as np
+from autograd.numpy import trace
+from autograd.numpy.linalg import det
+from autograd.numpy.linalg import inv
+from autograd.numpy.linalg import norm as vecNorm
+from autograd.scipy.stats import norm
+from autograd.scipy.special import gamma as gammaFn
+from autograd.scipy.special import polygamma
+
+from autograd import grad
+from autograd import elementwise_grad as ew_grad
 
 ### GENERAL KERNELS ###
 
@@ -41,7 +48,7 @@ def gamma_fisher(x1, x2, params={'alpha': 1., 'theta': 1.}):
     return np.dot(np.dot(score1, inv(fisher_info_mat)), score2.T)[0,0]
 
 def gamma_prob(x1, x2, params={'p':.5}):
-    return gamma(params['p']*(x1+x2-2.) + 1.) / (gamma(x1)*gamma(x2))**params['p']
+    return gammaFn(params['p']*(x1+x2-2.) + 1.) / (gammaFn(x1)*gammaFn(x2))**params['p']
 
 def composite_rbf(x1, x2, params={'t':.09, 'b':1.5}):
     #if x1 > 1: f1 = np.exp(1) - 1
@@ -50,8 +57,11 @@ def composite_rbf(x1, x2, params={'t':.09, 'b':1.5}):
     #else: f2 = np.exp(x2/params['b']) - 1
     return .08*x1*rbf(x1,x2,params)*x2
 
-def gamma_kld(a1, a2, theta1=1., theta2=1.):
-    return (a1-a2)*polygamma(0,a1) - np.log(gamma(a1)) + np.log(gamma(a2)) + a2*(np.log(theta2)-np.log(theta1)) + a1*((theta1-theta2)/theta2)
+def gamma_kld(a1, a2, theta1=10., theta2=10.):
+    return np.sum((a1-a2)*polygamma(0,a1) - np.log(gammaFn(a1)) + np.log(gammaFn(a2)) + a2*(np.log(theta2)-np.log(theta1)) + a1*((theta1-theta2)/theta2))
+
+def log_rbf(x1, x2, params={'t': .09}):
+    return rbf(np.log(x1), np.log(x2), params)
 
 
 ### BETA KERNELS ###
