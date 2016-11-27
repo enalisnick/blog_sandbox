@@ -95,7 +95,7 @@ def train_and_eval_advRefPrior(X_train, X_test, y_train, y_test):
 
     # initalize the model parameters                                                                                                                                                                
     model_params = init_bayesRegression_model(input_d)
-    prior_params = init_bayesRegression_model(input_d)
+    prior_params = {'mu': tf.Variable(tf.zeros([input_d, 1])), 'log_sigma': tf.Variable(tf.ones([input_d, 1]))}
     prior_params['b'] = model_params['b']
 
     # define the model's output                                                                                                                                                                      
@@ -115,7 +115,7 @@ def train_and_eval_advRefPrior(X_train, X_test, y_train, y_test):
     nBatches = X_train.shape[0]/batchSize
 
     train_elbo = tf.train.AdamOptimizer(0.0003).minimize(negElbo, var_list=[model_params['mu'], model_params['log_sigma'], model_params['b']])
-    train_prior = tf.train.AdamOptimizer(0.0003).minimize(advRP_obj, var_list=[prior_params['mu'], prior_params['log_sigma']])
+    train_prior = tf.train.AdamOptimizer(0.0001).minimize(advRP_obj, var_list=[prior_params['mu'], prior_params['log_sigma']])
 
     final_params = None
     with tf.Session() as session:
@@ -164,7 +164,7 @@ if __name__ == '__main__':
 
     X_train, X_test, y_train, y_test = load_data()
     
-    train_and_eval_sklModel(X_train, X_test, y_train, y_test)
-    train_and_eval_bayesModel(X_train, X_test, y_train, y_test)
+    #train_and_eval_sklModel(X_train, X_test, y_train, y_test)
+    #train_and_eval_bayesModel(X_train, X_test, y_train, y_test)
     train_and_eval_advRefPrior(X_train, X_test, y_train, y_test)
 
