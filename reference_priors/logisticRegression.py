@@ -107,7 +107,7 @@ def train_and_eval_advRefPrior(X_train, X_test, y_train, y_test):
 
     # define the cost function                                                                                                                                                                  
     negElbo = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(linear_model_out, y)) \
-        + tf.reduce_mean(gauss2gauss_KLD(model_params['mu'], tf.exp(model_params['log_sigma']), prior_params['mu'], tf.exp(model_params['log_sigma'])))
+        + tf.reduce_mean(gauss2gauss_KLD(model_params['mu'], tf.exp(model_params['log_sigma']), prior_params['mu'], tf.exp(prior_params['log_sigma'])))
     advRP_obj = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(advRP_linear_model_out, y)) + tf.reduce_mean(log_prior_under_post)
 
     n_epochs = 20
