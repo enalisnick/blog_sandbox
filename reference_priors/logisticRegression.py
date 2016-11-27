@@ -78,11 +78,12 @@ def train_and_eval_bayesModel(X_train, X_test, y_train, y_test):
                 elbo_tracker += loss
 
             print "Epoch %d.  Negative ELBO: %.4f" %(epoch_idx, elbo_tracker/nBatches)        
-        final_params = {'mu':session.run(model_params['mu']), 'mu':session.run(model_params['log_sigma']), 'b':session.run(model_params['b'])}
+        final_params = {'mu':session.run(model_params['mu']), 'log_sigma':session.run(model_params['log_sigma']), 'b':session.run(model_params['b'])}
         y_pred = session.run( preds, feed_dict={X: X_test.todense()} )
 
-    print "Variational Bayes Logistic Regression: %.4f \n" %(accuracy_score(y_test, np.rint(y_pred)))
-
+    print
+    print "Variational Bayes Logistic Regression: %.4f" %(accuracy_score(y_test, np.rint(y_pred)))
+    print "Avg. Post Mean %.3f / Std. %.3f \n" %(final_params['mu'].mean(), np.exp(final_params['log_sigma']).mean())
 
 
 def train_and_eval_advRefPrior(X_train, X_test, y_train, y_test):
@@ -114,7 +115,7 @@ def train_and_eval_advRefPrior(X_train, X_test, y_train, y_test):
     nBatches = X_train.shape[0]/batchSize
 
     train_elbo = tf.train.AdamOptimizer(0.0003).minimize(negElbo, var_list=[model_params['mu'], model_params['log_sigma'], model_params['b']])
-    train_prior = tf.train.AdamOptimizer(0.0001).minimize(advRP_obj, var_list=[prior_params['mu'], prior_params['log_sigma']])
+    train_prior = tf.train.AdamOptimizer(0.0003).minimize(advRP_obj, var_list=[prior_params['mu'], prior_params['log_sigma']])
 
     final_params = None
     with tf.Session() as session:
@@ -144,9 +145,10 @@ def train_and_eval_advRefPrior(X_train, X_test, y_train, y_test):
                             'prior_mu':session.run(prior_params['mu']), 'prior_log_sigma':session.run(prior_params['log_sigma'])}
         y_pred = session.run( preds, feed_dict={X: X_test.todense()} )
 
-    print "Adv. Reference Prior Logistic Regression: %.4f \n" %(accuracy_score(y_test, np.rint(y_pred)))
+    print
+    print "Adv. Reference Prior Logistic Regression: %.4f" %(accuracy_score(y_test, np.rint(y_pred)))
     print "Avg. Prior Mean %.3f / Std. %.3f " %(final_params['prior_mu'].mean(), np.exp(final_params['prior_log_sigma']).mean())
-    print "Avg. Post Mean %.3f / Std. %.3f " %(final_params['prior_mu'].mean(), np.exp(final_params['prior_log_sigma']).mean())
+    print "Avg. Post Mean %.3f / Std. %.3f \n" %(final_params['post_mu'].mean(), np.exp(final_params['post_log_sigma']).mean())
     
 
 ### SKLearn Model                                                                                                                                                                               
@@ -162,7 +164,7 @@ if __name__ == '__main__':
 
     X_train, X_test, y_train, y_test = load_data()
     
-    #train_and_eval_sklModel(X_train, X_test, y_train, y_test)
-    #train_and_eval_bayesModel(X_train, X_test, y_train, y_test)
+    train_and_eval_sklModel(X_train, X_test, y_train, y_test)
+    train_and_eval_bayesModel(X_train, X_test, y_train, y_test)
     train_and_eval_advRefPrior(X_train, X_test, y_train, y_test)
 
