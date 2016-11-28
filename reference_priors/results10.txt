@@ -1,0 +1,456 @@
+_________ Dataset: Diabetes ___________ 
+
+
+SKL Logistic Regression: 0.7532 
+
+Epoch 0.  Negative ELBO: 1.0389
+Epoch 1.  Negative ELBO: 0.9143
+Epoch 2.  Negative ELBO: 0.9117
+Epoch 3.  Negative ELBO: 0.8805
+Epoch 4.  Negative ELBO: 0.8893
+Epoch 5.  Negative ELBO: 0.9174
+Epoch 6.  Negative ELBO: 0.9531
+Epoch 7.  Negative ELBO: 0.9440
+Epoch 8.  Negative ELBO: 0.9630
+Epoch 9.  Negative ELBO: 0.9303
+Epoch 10.  Negative ELBO: 0.8528
+Epoch 11.  Negative ELBO: 0.8817
+Epoch 12.  Negative ELBO: 0.9405
+Epoch 13.  Negative ELBO: 0.9020
+Epoch 14.  Negative ELBO: 0.8701
+Epoch 15.  Negative ELBO: 0.9016
+Epoch 16.  Negative ELBO: 0.8825
+Epoch 17.  Negative ELBO: 0.8105
+Epoch 18.  Negative ELBO: 0.8973
+Epoch 19.  Negative ELBO: 0.8637
+Epoch 20.  Negative ELBO: 0.8531
+Epoch 21.  Negative ELBO: 0.8377
+Epoch 22.  Negative ELBO: 0.8404
+Epoch 23.  Negative ELBO: 0.7876
+Epoch 24.  Negative ELBO: 0.8400
+Epoch 25.  Negative ELBO: 0.8149
+Epoch 26.  Negative ELBO: 0.8667
+Epoch 27.  Negative ELBO: 0.8634
+Epoch 28.  Negative ELBO: 0.9059
+Epoch 29.  Negative ELBO: 0.8025
+Epoch 30.  Negative ELBO: 0.8237
+Epoch 31.  Negative ELBO: 0.8158
+Epoch 32.  Negative ELBO: 0.8023
+Epoch 33.  Negative ELBO: 0.9027
+Epoch 34.  Negative ELBO: 0.8244
+Epoch 35.  Negative ELBO: 0.8401
+Epoch 36.  Negative ELBO: 0.8620
+Epoch 37.  Negative ELBO: 0.8094
+Epoch 38.  Negative ELBO: 0.7552
+Epoch 39.  Negative ELBO: 0.8023
+Epoch 40.  Negative ELBO: 0.8791
+Epoch 41.  Negative ELBO: 0.8114
+Epoch 42.  Negative ELBO: 0.8689
+Epoch 43.  Negative ELBO: 0.7785
+Epoch 44.  Negative ELBO: 0.7706
+Epoch 45.  Negative ELBO: 0.8733
+Epoch 46.  Negative ELBO: 0.8983
+Epoch 47.  Negative ELBO: 0.7484
+Epoch 48.  Negative ELBO: 0.8314
+Epoch 49.  Negative ELBO: 0.8292
+
+Variational Bayes Logistic Regression: 0.6429
+Avg. Post Mean -0.208 / Std. 0.878 
+
+Epoch 0.  Negative ELBO: 1.6143 / Neg. Adv. Ref. Prior Obj.: 0.0968
+Epoch 1.  Negative ELBO: 1.5554 / Neg. Adv. Ref. Prior Obj.: -0.0682
+Epoch 2.  Negative ELBO: 1.5219 / Neg. Adv. Ref. Prior Obj.: -0.1472
+Epoch 3.  Negative ELBO: 1.4292 / Neg. Adv. Ref. Prior Obj.: -0.0313
+Epoch 4.  Negative ELBO: 1.4459 / Neg. Adv. Ref. Prior Obj.: -0.0875
+Epoch 5.  Negative ELBO: 1.5641 / Neg. Adv. Ref. Prior Obj.: 0.1311
+Epoch 6.  Negative ELBO: 1.4008 / Neg. Adv. Ref. Prior Obj.: 0.1919
+Epoch 7.  Negative ELBO: 1.4807 / Neg. Adv. Ref. Prior Obj.: -0.1912
+Epoch 8.  Negative ELBO: 1.4752 / Neg. Adv. Ref. Prior Obj.: -0.0921
+Epoch 9.  Negative ELBO: 1.4706 / Neg. Adv. Ref. Prior Obj.: -0.1730
+Epoch 10.  Negative ELBO: 1.4964 / Neg. Adv. Ref. Prior Obj.: -0.1040
+Epoch 11.  Negative ELBO: 1.4845 / Neg. Adv. Ref. Prior Obj.: -0.1891
+Epoch 12.  Negative ELBO: 1.4025 / Neg. Adv. Ref. Prior Obj.: 0.0304
+Epoch 13.  Negative ELBO: 1.4133 / Neg. Adv. Ref. Prior Obj.: 0.2779
+Epoch 14.  Negative ELBO: 1.4371 / Neg. Adv. Ref. Prior Obj.: -0.0230
+Epoch 15.  Negative ELBO: 1.4056 / Neg. Adv. Ref. Prior Obj.: -0.1121
+Epoch 16.  Negative ELBO: 1.3918 / Neg. Adv. Ref. Prior Obj.: -0.3306
+Epoch 17.  Negative ELBO: 1.4056 / Neg. Adv. Ref. Prior Obj.: 0.3027
+Epoch 18.  Negative ELBO: 1.3270 / Neg. Adv. Ref. Prior Obj.: 0.0374
+Epoch 19.  Negative ELBO: 1.3089 / Neg. Adv. Ref. Prior Obj.: -0.2685
+Epoch 20.  Negative ELBO: 1.4324 / Neg. Adv. Ref. Prior Obj.: -0.1232
+Epoch 21.  Negative ELBO: 1.2909 / Neg. Adv. Ref. Prior Obj.: -0.0566
+Epoch 22.  Negative ELBO: 1.3242 / Neg. Adv. Ref. Prior Obj.: -0.3260
+Epoch 23.  Negative ELBO: 1.4208 / Neg. Adv. Ref. Prior Obj.: -0.3390
+Epoch 24.  Negative ELBO: 1.3286 / Neg. Adv. Ref. Prior Obj.: -0.1467
+Epoch 25.  Negative ELBO: 1.4262 / Neg. Adv. Ref. Prior Obj.: -0.1445
+Epoch 26.  Negative ELBO: 1.3640 / Neg. Adv. Ref. Prior Obj.: -0.4228
+Epoch 27.  Negative ELBO: 1.3042 / Neg. Adv. Ref. Prior Obj.: -0.2941
+Epoch 28.  Negative ELBO: 1.2544 / Neg. Adv. Ref. Prior Obj.: -0.2180
+Epoch 29.  Negative ELBO: 1.3921 / Neg. Adv. Ref. Prior Obj.: -0.0309
+Epoch 30.  Negative ELBO: 1.2979 / Neg. Adv. Ref. Prior Obj.: -0.3956
+Epoch 31.  Negative ELBO: 1.3215 / Neg. Adv. Ref. Prior Obj.: -0.4081
+Epoch 32.  Negative ELBO: 1.3061 / Neg. Adv. Ref. Prior Obj.: -0.2966
+Epoch 33.  Negative ELBO: 1.2847 / Neg. Adv. Ref. Prior Obj.: 0.0130
+Epoch 34.  Negative ELBO: 1.2881 / Neg. Adv. Ref. Prior Obj.: -0.2165
+Epoch 35.  Negative ELBO: 1.3339 / Neg. Adv. Ref. Prior Obj.: -0.2865
+Epoch 36.  Negative ELBO: 1.2763 / Neg. Adv. Ref. Prior Obj.: -0.2219
+Epoch 37.  Negative ELBO: 1.3566 / Neg. Adv. Ref. Prior Obj.: -0.2364
+Epoch 38.  Negative ELBO: 1.2483 / Neg. Adv. Ref. Prior Obj.: -0.1431
+Epoch 39.  Negative ELBO: 1.1868 / Neg. Adv. Ref. Prior Obj.: -0.0836
+Epoch 40.  Negative ELBO: 1.2051 / Neg. Adv. Ref. Prior Obj.: -0.3370
+Epoch 41.  Negative ELBO: 1.1564 / Neg. Adv. Ref. Prior Obj.: -0.1770
+Epoch 42.  Negative ELBO: 1.2018 / Neg. Adv. Ref. Prior Obj.: -0.2257
+Epoch 43.  Negative ELBO: 1.1900 / Neg. Adv. Ref. Prior Obj.: -0.1432
+Epoch 44.  Negative ELBO: 1.2352 / Neg. Adv. Ref. Prior Obj.: -0.1918
+Epoch 45.  Negative ELBO: 1.2757 / Neg. Adv. Ref. Prior Obj.: 0.0104
+Epoch 46.  Negative ELBO: 1.1883 / Neg. Adv. Ref. Prior Obj.: -0.3208
+Epoch 47.  Negative ELBO: 1.2117 / Neg. Adv. Ref. Prior Obj.: -0.2335
+Epoch 48.  Negative ELBO: 1.1856 / Neg. Adv. Ref. Prior Obj.: -0.2965
+Epoch 49.  Negative ELBO: 1.2132 / Neg. Adv. Ref. Prior Obj.: -0.4283
+
+Adv. Reference Prior Logistic Regression: 0.6558
+Avg. Prior Mean -0.103 / Std. 2.640 
+Avg. Post Mean -0.302 / Std. 1.328 
+
+_________ Dataset: Breast Cancer ___________ 
+
+
+SKL Logistic Regression: 0.5766 
+
+Epoch 0.  Negative ELBO: 423148.3313
+Epoch 1.  Negative ELBO: 359721.3613
+Epoch 2.  Negative ELBO: 517363.7042
+Epoch 3.  Negative ELBO: 403444.0554
+Epoch 4.  Negative ELBO: 354998.1571
+Epoch 5.  Negative ELBO: 382504.0708
+Epoch 6.  Negative ELBO: 349201.0652
+Epoch 7.  Negative ELBO: 314559.0877
+Epoch 8.  Negative ELBO: 416309.6256
+Epoch 9.  Negative ELBO: 320362.4060
+Epoch 10.  Negative ELBO: 319117.7109
+Epoch 11.  Negative ELBO: 423560.0905
+Epoch 12.  Negative ELBO: 295308.3292
+Epoch 13.  Negative ELBO: 317760.6572
+Epoch 14.  Negative ELBO: 314680.8240
+Epoch 15.  Negative ELBO: 388372.1537
+Epoch 16.  Negative ELBO: 463097.5071
+Epoch 17.  Negative ELBO: 353283.7033
+Epoch 18.  Negative ELBO: 412251.8324
+Epoch 19.  Negative ELBO: 328403.4972
+Epoch 20.  Negative ELBO: 406330.9568
+Epoch 21.  Negative ELBO: 326290.1174
+Epoch 22.  Negative ELBO: 316761.4685
+Epoch 23.  Negative ELBO: 323957.7974
+Epoch 24.  Negative ELBO: 308091.1306
+Epoch 25.  Negative ELBO: 303811.2915
+Epoch 26.  Negative ELBO: 334601.7384
+Epoch 27.  Negative ELBO: 292823.1100
+Epoch 28.  Negative ELBO: 248741.3087
+Epoch 29.  Negative ELBO: 233470.3229
+Epoch 30.  Negative ELBO: 268086.1135
+Epoch 31.  Negative ELBO: 258528.8806
+Epoch 32.  Negative ELBO: 256157.1834
+Epoch 33.  Negative ELBO: 332032.4082
+Epoch 34.  Negative ELBO: 299821.6127
+Epoch 35.  Negative ELBO: 330920.5701
+Epoch 36.  Negative ELBO: 265097.7017
+Epoch 37.  Negative ELBO: 314958.2677
+Epoch 38.  Negative ELBO: 317827.1718
+Epoch 39.  Negative ELBO: 361930.0003
+Epoch 40.  Negative ELBO: 333629.9004
+Epoch 41.  Negative ELBO: 294188.4366
+Epoch 42.  Negative ELBO: 267483.7341
+Epoch 43.  Negative ELBO: 257307.7793
+Epoch 44.  Negative ELBO: 282085.8710
+Epoch 45.  Negative ELBO: 222819.5303
+Epoch 46.  Negative ELBO: 280698.9105
+Epoch 47.  Negative ELBO: 220545.0797
+Epoch 48.  Negative ELBO: 193946.2392
+Epoch 49.  Negative ELBO: 262310.2279
+
+Variational Bayes Logistic Regression: 0.5766
+Avg. Post Mean 0.277 / Std. 0.989 
+
+Epoch 0.  Negative ELBO: 352721.5577 / Neg. Adv. Ref. Prior Obj.: 1223017.4901
+Epoch 1.  Negative ELBO: 245961.7137 / Neg. Adv. Ref. Prior Obj.: 1463679.5409
+Epoch 2.  Negative ELBO: 412279.1650 / Neg. Adv. Ref. Prior Obj.: 1126484.6057
+Epoch 3.  Negative ELBO: 251435.2714 / Neg. Adv. Ref. Prior Obj.: 963932.7337
+Epoch 4.  Negative ELBO: 328059.9569 / Neg. Adv. Ref. Prior Obj.: 1293050.0947
+Epoch 5.  Negative ELBO: 315737.9104 / Neg. Adv. Ref. Prior Obj.: 1048230.5108
+Epoch 6.  Negative ELBO: 374158.0147 / Neg. Adv. Ref. Prior Obj.: 1142153.9818
+Epoch 7.  Negative ELBO: 296805.4232 / Neg. Adv. Ref. Prior Obj.: 1011690.3912
+Epoch 8.  Negative ELBO: 392023.3504 / Neg. Adv. Ref. Prior Obj.: 1227849.7330
+Epoch 9.  Negative ELBO: 277860.7136 / Neg. Adv. Ref. Prior Obj.: 1094996.4711
+Epoch 10.  Negative ELBO: 319194.2769 / Neg. Adv. Ref. Prior Obj.: 1456132.7051
+Epoch 11.  Negative ELBO: 265077.1817 / Neg. Adv. Ref. Prior Obj.: 1272535.4591
+Epoch 12.  Negative ELBO: 366073.5834 / Neg. Adv. Ref. Prior Obj.: 1020803.8121
+Epoch 13.  Negative ELBO: 366013.7832 / Neg. Adv. Ref. Prior Obj.: 1075012.2378
+Epoch 14.  Negative ELBO: 297690.3594 / Neg. Adv. Ref. Prior Obj.: 1161768.9270
+Epoch 15.  Negative ELBO: 278999.2313 / Neg. Adv. Ref. Prior Obj.: 1308210.8756
+Epoch 16.  Negative ELBO: 227575.8072 / Neg. Adv. Ref. Prior Obj.: 901596.1864
+Epoch 17.  Negative ELBO: 298061.5348 / Neg. Adv. Ref. Prior Obj.: 1305323.5540
+Epoch 18.  Negative ELBO: 268878.1833 / Neg. Adv. Ref. Prior Obj.: 917915.0452
+Epoch 19.  Negative ELBO: 348471.2797 / Neg. Adv. Ref. Prior Obj.: 938426.3495
+Epoch 20.  Negative ELBO: 234762.1803 / Neg. Adv. Ref. Prior Obj.: 1059736.5318
+Epoch 21.  Negative ELBO: 332031.3847 / Neg. Adv. Ref. Prior Obj.: 1228567.1817
+Epoch 22.  Negative ELBO: 242692.9463 / Neg. Adv. Ref. Prior Obj.: 1020510.3561
+Epoch 23.  Negative ELBO: 270454.0821 / Neg. Adv. Ref. Prior Obj.: 916615.9641
+Epoch 24.  Negative ELBO: 346616.6982 / Neg. Adv. Ref. Prior Obj.: 984271.8435
+Epoch 25.  Negative ELBO: 307329.9863 / Neg. Adv. Ref. Prior Obj.: 1054453.0207
+Epoch 26.  Negative ELBO: 304853.2290 / Neg. Adv. Ref. Prior Obj.: 1406419.2204
+Epoch 27.  Negative ELBO: 285579.0960 / Neg. Adv. Ref. Prior Obj.: 1038954.4511
+Epoch 28.  Negative ELBO: 255114.6680 / Neg. Adv. Ref. Prior Obj.: 840631.8008
+Epoch 29.  Negative ELBO: 296074.2560 / Neg. Adv. Ref. Prior Obj.: 942802.2143
+Epoch 30.  Negative ELBO: 231058.6977 / Neg. Adv. Ref. Prior Obj.: 1126497.1817
+Epoch 31.  Negative ELBO: 251424.8072 / Neg. Adv. Ref. Prior Obj.: 1174794.1854
+Epoch 32.  Negative ELBO: 221931.0860 / Neg. Adv. Ref. Prior Obj.: 1042718.2407
+Epoch 33.  Negative ELBO: 225029.0042 / Neg. Adv. Ref. Prior Obj.: 1311655.2130
+Epoch 34.  Negative ELBO: 205837.6023 / Neg. Adv. Ref. Prior Obj.: 981814.3560
+Epoch 35.  Negative ELBO: 212325.5341 / Neg. Adv. Ref. Prior Obj.: 1106769.4623
+Epoch 36.  Negative ELBO: 263189.9742 / Neg. Adv. Ref. Prior Obj.: 1207421.7548
+Epoch 37.  Negative ELBO: 256267.3651 / Neg. Adv. Ref. Prior Obj.: 1111199.4880
+Epoch 38.  Negative ELBO: 240440.7184 / Neg. Adv. Ref. Prior Obj.: 883485.1893
+Epoch 39.  Negative ELBO: 237909.1129 / Neg. Adv. Ref. Prior Obj.: 1113592.3027
+Epoch 40.  Negative ELBO: 246141.6142 / Neg. Adv. Ref. Prior Obj.: 797629.2847
+Epoch 41.  Negative ELBO: 194163.6762 / Neg. Adv. Ref. Prior Obj.: 901412.2272
+Epoch 42.  Negative ELBO: 201479.1757 / Neg. Adv. Ref. Prior Obj.: 856280.0784
+Epoch 43.  Negative ELBO: 177852.8739 / Neg. Adv. Ref. Prior Obj.: 1082902.5466
+Epoch 44.  Negative ELBO: 245905.9532 / Neg. Adv. Ref. Prior Obj.: 1095050.5459
+Epoch 45.  Negative ELBO: 211835.1229 / Neg. Adv. Ref. Prior Obj.: 1101684.3073
+Epoch 46.  Negative ELBO: 219736.8667 / Neg. Adv. Ref. Prior Obj.: 911612.1466
+Epoch 47.  Negative ELBO: 211203.6659 / Neg. Adv. Ref. Prior Obj.: 1072404.3672
+Epoch 48.  Negative ELBO: 177282.8104 / Neg. Adv. Ref. Prior Obj.: 977499.9324
+Epoch 49.  Negative ELBO: 200050.3184 / Neg. Adv. Ref. Prior Obj.: 1026628.0438
+
+Adv. Reference Prior Logistic Regression: 0.5766
+Avg. Prior Mean 0.044 / Std. 2.690 
+Avg. Post Mean 0.288 / Std. 0.975 
+
+_________ Dataset: Leukemia ___________ 
+
+
+SKL Logistic Regression: 0.7941 
+
+Epoch 0.  Negative ELBO: 38.2737
+Epoch 1.  Negative ELBO: 25.6899
+Epoch 2.  Negative ELBO: 18.9873
+Epoch 3.  Negative ELBO: 33.9594
+Epoch 4.  Negative ELBO: 32.9088
+Epoch 5.  Negative ELBO: 20.4243
+Epoch 6.  Negative ELBO: 31.5345
+Epoch 7.  Negative ELBO: 35.8070
+Epoch 8.  Negative ELBO: 21.3060
+Epoch 9.  Negative ELBO: 32.7082
+Epoch 10.  Negative ELBO: 25.1506
+Epoch 11.  Negative ELBO: 24.4405
+Epoch 12.  Negative ELBO: 13.4403
+Epoch 13.  Negative ELBO: 22.6260
+Epoch 14.  Negative ELBO: 19.2021
+Epoch 15.  Negative ELBO: 14.5988
+Epoch 16.  Negative ELBO: 24.4205
+Epoch 17.  Negative ELBO: 18.8900
+Epoch 18.  Negative ELBO: 14.9755
+Epoch 19.  Negative ELBO: 10.8733
+Epoch 20.  Negative ELBO: 13.3276
+Epoch 21.  Negative ELBO: 22.0021
+Epoch 22.  Negative ELBO: 15.7466
+Epoch 23.  Negative ELBO: 10.3555
+Epoch 24.  Negative ELBO: 7.1776
+Epoch 25.  Negative ELBO: 15.1952
+Epoch 26.  Negative ELBO: 23.2777
+Epoch 27.  Negative ELBO: 12.0481
+Epoch 28.  Negative ELBO: 3.9905
+Epoch 29.  Negative ELBO: 7.4811
+Epoch 30.  Negative ELBO: 9.5194
+Epoch 31.  Negative ELBO: 4.5749
+Epoch 32.  Negative ELBO: 10.5173
+Epoch 33.  Negative ELBO: 9.1825
+Epoch 34.  Negative ELBO: 5.0822
+Epoch 35.  Negative ELBO: 12.4090
+Epoch 36.  Negative ELBO: 5.2881
+Epoch 37.  Negative ELBO: 11.1376
+Epoch 38.  Negative ELBO: 12.7606
+Epoch 39.  Negative ELBO: 5.2060
+Epoch 40.  Negative ELBO: 14.5027
+Epoch 41.  Negative ELBO: 9.7936
+Epoch 42.  Negative ELBO: 8.1701
+Epoch 43.  Negative ELBO: 6.6213
+Epoch 44.  Negative ELBO: 12.3875
+Epoch 45.  Negative ELBO: 4.8682
+Epoch 46.  Negative ELBO: 3.7353
+Epoch 47.  Negative ELBO: 2.9786
+Epoch 48.  Negative ELBO: 1.6586
+Epoch 49.  Negative ELBO: 10.1321
+
+Variational Bayes Logistic Regression: 0.7941
+Avg. Post Mean 0.000 / Std. 1.001 
+
+Epoch 0.  Negative ELBO: 26.0151 / Neg. Adv. Ref. Prior Obj.: 104.3245
+Epoch 1.  Negative ELBO: 45.0851 / Neg. Adv. Ref. Prior Obj.: 69.9820
+Epoch 2.  Negative ELBO: 17.9958 / Neg. Adv. Ref. Prior Obj.: 66.3538
+Epoch 3.  Negative ELBO: 31.8178 / Neg. Adv. Ref. Prior Obj.: 84.3907
+Epoch 4.  Negative ELBO: 33.1798 / Neg. Adv. Ref. Prior Obj.: 75.5929
+Epoch 5.  Negative ELBO: 15.4434 / Neg. Adv. Ref. Prior Obj.: 60.2752
+Epoch 6.  Negative ELBO: 24.4147 / Neg. Adv. Ref. Prior Obj.: 63.9378
+Epoch 7.  Negative ELBO: 35.6662 / Neg. Adv. Ref. Prior Obj.: 64.1362
+Epoch 8.  Negative ELBO: 30.3869 / Neg. Adv. Ref. Prior Obj.: 77.4134
+Epoch 9.  Negative ELBO: 15.5856 / Neg. Adv. Ref. Prior Obj.: 37.3590
+Epoch 10.  Negative ELBO: 17.8067 / Neg. Adv. Ref. Prior Obj.: 126.1094
+Epoch 11.  Negative ELBO: 21.7596 / Neg. Adv. Ref. Prior Obj.: 66.7994
+Epoch 12.  Negative ELBO: 30.1240 / Neg. Adv. Ref. Prior Obj.: 94.4668
+Epoch 13.  Negative ELBO: 17.2759 / Neg. Adv. Ref. Prior Obj.: 81.1894
+Epoch 14.  Negative ELBO: 19.1145 / Neg. Adv. Ref. Prior Obj.: 38.8956
+Epoch 15.  Negative ELBO: 11.9999 / Neg. Adv. Ref. Prior Obj.: 99.6264
+Epoch 16.  Negative ELBO: 30.9091 / Neg. Adv. Ref. Prior Obj.: 92.4221
+Epoch 17.  Negative ELBO: 17.0243 / Neg. Adv. Ref. Prior Obj.: 81.3350
+Epoch 18.  Negative ELBO: 11.4462 / Neg. Adv. Ref. Prior Obj.: 68.1143
+Epoch 19.  Negative ELBO: 12.4548 / Neg. Adv. Ref. Prior Obj.: 65.7551
+Epoch 20.  Negative ELBO: 7.6136 / Neg. Adv. Ref. Prior Obj.: 107.8352
+Epoch 21.  Negative ELBO: 14.2487 / Neg. Adv. Ref. Prior Obj.: 97.4437
+Epoch 22.  Negative ELBO: 11.7731 / Neg. Adv. Ref. Prior Obj.: 66.0393
+Epoch 23.  Negative ELBO: 10.5510 / Neg. Adv. Ref. Prior Obj.: 74.8159
+Epoch 24.  Negative ELBO: 13.8369 / Neg. Adv. Ref. Prior Obj.: 49.0171
+Epoch 25.  Negative ELBO: 18.7844 / Neg. Adv. Ref. Prior Obj.: 59.8086
+Epoch 26.  Negative ELBO: 4.5025 / Neg. Adv. Ref. Prior Obj.: 80.9220
+Epoch 27.  Negative ELBO: 19.1069 / Neg. Adv. Ref. Prior Obj.: 63.2957
+Epoch 28.  Negative ELBO: 15.0861 / Neg. Adv. Ref. Prior Obj.: 85.5302
+Epoch 29.  Negative ELBO: 15.5807 / Neg. Adv. Ref. Prior Obj.: 77.8212
+Epoch 30.  Negative ELBO: 24.0640 / Neg. Adv. Ref. Prior Obj.: 84.2466
+Epoch 31.  Negative ELBO: 12.6666 / Neg. Adv. Ref. Prior Obj.: 79.7551
+Epoch 32.  Negative ELBO: 9.5477 / Neg. Adv. Ref. Prior Obj.: 72.4689
+Epoch 33.  Negative ELBO: 10.0773 / Neg. Adv. Ref. Prior Obj.: 70.8188
+Epoch 34.  Negative ELBO: 8.6982 / Neg. Adv. Ref. Prior Obj.: 52.6184
+Epoch 35.  Negative ELBO: 17.9537 / Neg. Adv. Ref. Prior Obj.: 51.4196
+Epoch 36.  Negative ELBO: 13.7737 / Neg. Adv. Ref. Prior Obj.: 78.7549
+Epoch 37.  Negative ELBO: 1.9552 / Neg. Adv. Ref. Prior Obj.: 65.2932
+Epoch 38.  Negative ELBO: 9.0625 / Neg. Adv. Ref. Prior Obj.: 60.3408
+Epoch 39.  Negative ELBO: 8.9606 / Neg. Adv. Ref. Prior Obj.: 47.7347
+Epoch 40.  Negative ELBO: 5.2288 / Neg. Adv. Ref. Prior Obj.: 63.5119
+Epoch 41.  Negative ELBO: 8.2895 / Neg. Adv. Ref. Prior Obj.: 64.0140
+Epoch 42.  Negative ELBO: 12.1210 / Neg. Adv. Ref. Prior Obj.: 126.2957
+Epoch 43.  Negative ELBO: 11.0693 / Neg. Adv. Ref. Prior Obj.: 56.0761
+Epoch 44.  Negative ELBO: 8.0639 / Neg. Adv. Ref. Prior Obj.: 45.7397
+Epoch 45.  Negative ELBO: 2.3752 / Neg. Adv. Ref. Prior Obj.: 49.7792
+Epoch 46.  Negative ELBO: 10.3017 / Neg. Adv. Ref. Prior Obj.: 68.7057
+Epoch 47.  Negative ELBO: 10.2404 / Neg. Adv. Ref. Prior Obj.: 70.6653
+Epoch 48.  Negative ELBO: 10.8718 / Neg. Adv. Ref. Prior Obj.: 38.8670
+Epoch 49.  Negative ELBO: 13.7470 / Neg. Adv. Ref. Prior Obj.: 54.3478
+
+Adv. Reference Prior Logistic Regression: 0.6176
+Avg. Prior Mean -0.001 / Std. 2.716 
+Avg. Post Mean -0.001 / Std. 1.003 
+
+_________ Dataset: Colon Cancer ___________ 
+
+
+SKL Logistic Regression: 0.5385 
+
+Epoch 0.  Negative ELBO: 18.9685
+Epoch 1.  Negative ELBO: 14.9627
+Epoch 2.  Negative ELBO: 19.6954
+Epoch 3.  Negative ELBO: 25.5853
+Epoch 4.  Negative ELBO: 13.5791
+Epoch 5.  Negative ELBO: 17.4839
+Epoch 6.  Negative ELBO: 14.2247
+Epoch 7.  Negative ELBO: 11.6860
+Epoch 8.  Negative ELBO: 11.2213
+Epoch 9.  Negative ELBO: 8.3323
+Epoch 10.  Negative ELBO: 9.4775
+Epoch 11.  Negative ELBO: 16.6995
+Epoch 12.  Negative ELBO: 9.8934
+Epoch 13.  Negative ELBO: 13.1418
+Epoch 14.  Negative ELBO: 12.5313
+Epoch 15.  Negative ELBO: 11.9014
+Epoch 16.  Negative ELBO: 7.5815
+Epoch 17.  Negative ELBO: 14.2341
+Epoch 18.  Negative ELBO: 11.3635
+Epoch 19.  Negative ELBO: 12.3809
+Epoch 20.  Negative ELBO: 10.5423
+Epoch 21.  Negative ELBO: 12.5540
+Epoch 22.  Negative ELBO: 14.2404
+Epoch 23.  Negative ELBO: 15.9845
+Epoch 24.  Negative ELBO: 9.1516
+Epoch 25.  Negative ELBO: 9.0714
+Epoch 26.  Negative ELBO: 7.6698
+Epoch 27.  Negative ELBO: 13.7746
+Epoch 28.  Negative ELBO: 8.5310
+Epoch 29.  Negative ELBO: 4.7627
+Epoch 30.  Negative ELBO: 3.5563
+Epoch 31.  Negative ELBO: 7.6535
+Epoch 32.  Negative ELBO: 6.6583
+Epoch 33.  Negative ELBO: 10.6139
+Epoch 34.  Negative ELBO: 7.5480
+Epoch 35.  Negative ELBO: 12.0387
+Epoch 36.  Negative ELBO: 5.1533
+Epoch 37.  Negative ELBO: 6.9937
+Epoch 38.  Negative ELBO: 8.2543
+Epoch 39.  Negative ELBO: 3.1464
+Epoch 40.  Negative ELBO: 6.0008
+Epoch 41.  Negative ELBO: 12.7799
+Epoch 42.  Negative ELBO: 3.5317
+Epoch 43.  Negative ELBO: 5.9934
+Epoch 44.  Negative ELBO: 6.8039
+Epoch 45.  Negative ELBO: 7.5347
+Epoch 46.  Negative ELBO: 10.6131
+Epoch 47.  Negative ELBO: 3.0934
+Epoch 48.  Negative ELBO: 4.9213
+Epoch 49.  Negative ELBO: 5.8404
+
+Variational Bayes Logistic Regression: 0.5385
+Avg. Post Mean -0.001 / Std. 0.995 
+
+Epoch 0.  Negative ELBO: 15.1033 / Neg. Adv. Ref. Prior Obj.: 44.8125
+Epoch 1.  Negative ELBO: 22.8166 / Neg. Adv. Ref. Prior Obj.: 23.2354
+Epoch 2.  Negative ELBO: 12.2860 / Neg. Adv. Ref. Prior Obj.: 58.1862
+Epoch 3.  Negative ELBO: 18.7449 / Neg. Adv. Ref. Prior Obj.: 37.6039
+Epoch 4.  Negative ELBO: 23.0461 / Neg. Adv. Ref. Prior Obj.: 54.4832
+Epoch 5.  Negative ELBO: 13.1219 / Neg. Adv. Ref. Prior Obj.: 45.6284
+Epoch 6.  Negative ELBO: 13.1345 / Neg. Adv. Ref. Prior Obj.: 49.6283
+Epoch 7.  Negative ELBO: 14.5764 / Neg. Adv. Ref. Prior Obj.: 52.3603
+Epoch 8.  Negative ELBO: 17.4697 / Neg. Adv. Ref. Prior Obj.: 37.9047
+Epoch 9.  Negative ELBO: 13.1941 / Neg. Adv. Ref. Prior Obj.: 43.5719
+Epoch 10.  Negative ELBO: 15.4263 / Neg. Adv. Ref. Prior Obj.: 46.4393
+Epoch 11.  Negative ELBO: 13.1296 / Neg. Adv. Ref. Prior Obj.: 32.1404
+Epoch 12.  Negative ELBO: 14.2699 / Neg. Adv. Ref. Prior Obj.: 29.3625
+Epoch 13.  Negative ELBO: 7.9095 / Neg. Adv. Ref. Prior Obj.: 32.2999
+Epoch 14.  Negative ELBO: 16.1571 / Neg. Adv. Ref. Prior Obj.: 53.7944
+Epoch 15.  Negative ELBO: 9.8726 / Neg. Adv. Ref. Prior Obj.: 63.3500
+Epoch 16.  Negative ELBO: 11.6796 / Neg. Adv. Ref. Prior Obj.: 47.1808
+Epoch 17.  Negative ELBO: 8.1730 / Neg. Adv. Ref. Prior Obj.: 21.2859
+Epoch 18.  Negative ELBO: 6.0340 / Neg. Adv. Ref. Prior Obj.: 31.4630
+Epoch 19.  Negative ELBO: 7.7477 / Neg. Adv. Ref. Prior Obj.: 41.1968
+Epoch 20.  Negative ELBO: 9.6178 / Neg. Adv. Ref. Prior Obj.: 54.9572
+Epoch 21.  Negative ELBO: 10.8604 / Neg. Adv. Ref. Prior Obj.: 39.6840
+Epoch 22.  Negative ELBO: 15.2492 / Neg. Adv. Ref. Prior Obj.: 46.3957
+Epoch 23.  Negative ELBO: 10.8880 / Neg. Adv. Ref. Prior Obj.: 44.1372
+Epoch 24.  Negative ELBO: 5.3655 / Neg. Adv. Ref. Prior Obj.: 29.5149
+Epoch 25.  Negative ELBO: 7.4089 / Neg. Adv. Ref. Prior Obj.: 40.0960
+Epoch 26.  Negative ELBO: 11.4431 / Neg. Adv. Ref. Prior Obj.: 41.5205
+Epoch 27.  Negative ELBO: 6.2210 / Neg. Adv. Ref. Prior Obj.: 35.9790
+Epoch 28.  Negative ELBO: 9.9108 / Neg. Adv. Ref. Prior Obj.: 39.7525
+Epoch 29.  Negative ELBO: 16.9210 / Neg. Adv. Ref. Prior Obj.: 35.2361
+Epoch 30.  Negative ELBO: 9.5877 / Neg. Adv. Ref. Prior Obj.: 35.0518
+Epoch 31.  Negative ELBO: 10.2872 / Neg. Adv. Ref. Prior Obj.: 31.2932
+Epoch 32.  Negative ELBO: 13.1624 / Neg. Adv. Ref. Prior Obj.: 27.3559
+Epoch 33.  Negative ELBO: 7.0024 / Neg. Adv. Ref. Prior Obj.: 41.2674
+Epoch 34.  Negative ELBO: 13.7194 / Neg. Adv. Ref. Prior Obj.: 36.5995
+Epoch 35.  Negative ELBO: 12.9888 / Neg. Adv. Ref. Prior Obj.: 33.7578
+Epoch 36.  Negative ELBO: 3.7099 / Neg. Adv. Ref. Prior Obj.: 27.7278
+Epoch 37.  Negative ELBO: 4.0668 / Neg. Adv. Ref. Prior Obj.: 62.6598
+Epoch 38.  Negative ELBO: 10.5322 / Neg. Adv. Ref. Prior Obj.: 24.1028
+Epoch 39.  Negative ELBO: 9.9108 / Neg. Adv. Ref. Prior Obj.: 44.7610
+Epoch 40.  Negative ELBO: 2.3622 / Neg. Adv. Ref. Prior Obj.: 23.7813
+Epoch 41.  Negative ELBO: 8.5827 / Neg. Adv. Ref. Prior Obj.: 41.0017
+Epoch 42.  Negative ELBO: 6.8655 / Neg. Adv. Ref. Prior Obj.: 24.1943
+Epoch 43.  Negative ELBO: 3.7049 / Neg. Adv. Ref. Prior Obj.: 35.2582
+Epoch 44.  Negative ELBO: 9.1194 / Neg. Adv. Ref. Prior Obj.: 24.5175
+Epoch 45.  Negative ELBO: 9.3208 / Neg. Adv. Ref. Prior Obj.: 51.4038
+Epoch 46.  Negative ELBO: 3.8574 / Neg. Adv. Ref. Prior Obj.: 37.6913
+Epoch 47.  Negative ELBO: 4.7699 / Neg. Adv. Ref. Prior Obj.: 33.4992
+Epoch 48.  Negative ELBO: 9.2110 / Neg. Adv. Ref. Prior Obj.: 47.4258
+Epoch 49.  Negative ELBO: 6.7667 / Neg. Adv. Ref. Prior Obj.: 34.7234
+
+Adv. Reference Prior Logistic Regression: 0.6154
+Avg. Prior Mean -0.000 / Std. 2.710 
+Avg. Post Mean -0.002 / Std. 0.995 
+

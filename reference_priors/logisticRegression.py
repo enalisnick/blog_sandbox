@@ -7,11 +7,21 @@ from sklearn.datasets import load_svmlight_file
 from sklearn.cross_validation import train_test_split
 from sklearn.metrics import accuracy_score
 
-def load_data():
-    X, y = load_svmlight_file("/Users/enalisnick/Downloads/covtype.libsvm.binary.scale")
-    y = (y-1).astype(int)
-    return train_test_split(X, y, test_size=0.3, random_state=42)
-
+def load_data(dataset, splitPer = .2):
+    if dataset[1]:
+        X_train, y_train = load_svmlight_file("/Users/enalisnick/Desktop/UCIdatasets/"+dataset[0])
+        X_test, y_test = load_svmlight_file("/Users/enalisnick/Desktop/UCIdatasets/"+dataset[1])
+    else:
+        X, y = load_svmlight_file("/Users/enalisnick/Desktop/UCIdatasets/"+dataset[0])        
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=splitPer, random_state=42)
+    
+    for y in [y_train, y_test]:
+        for idx in xrange(len(y)):
+            if y[idx] == -1: y[idx] = 0
+            if y[idx] == 2: y[idx] = 0
+            if y[idx] == 4: y[idx] = 1
+        
+    return X_train, X_test, y_train, y_test
 
 def init_bayesRegression_model(in_size, std=.1):
     return {'mu': tf.Variable(tf.random_normal([in_size, 1], stddev=std)),\
@@ -42,7 +52,7 @@ def sample_normal(mu, sigma, input_d=None):
     else:
         return mu
 
-def train_and_eval_bayesModel(X_train, X_test, y_train, y_test):
+def train_and_eval_bayesModel(X_train, X_test, y_train, y_test, trianParams):
     input_d = X_train.shape[1]
 
     ### Make symbolic variables
@@ -59,22 +69,20 @@ def train_and_eval_bayesModel(X_train, X_test, y_train, y_test):
     # define the cost function
     negElbo = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(linear_model_out, y)) + tf.reduce_mean(gauss2gauss_KLD(model_params['mu'], tf.exp(model_params['log_sigma'])))
     
-    n_epochs = 20
-    batchSize = 200
-    nBatches = X_train.shape[0]/batchSize
-    train_model = tf.train.AdamOptimizer(0.0003).minimize(negElbo, var_list=[model_params['mu'], model_params['log_sigma'], model_params['b']])
+    nBatches = X_train.shape[0]/trainParams['batchSize']
+    train_model = tf.train.AdamOptimizer(trainParams['postLR']).minimize(negElbo, var_list=[model_params['mu'], model_params['log_sigma'], model_params['b']])
 
     final_params = None
     with tf.Session() as session:
         tf.initialize_all_variables().run()
 
-        for epoch_idx in xrange(n_epochs):
+        for epoch_idx in xrange(trainParams['nEpochs']):
             elbo_tracker = 0.
 
             for batch_idx in xrange(nBatches):
                 _, loss = session.run([train_model, negElbo], \
-                                          feed_dict={X: X_train[batch_idx*batchSize:(batch_idx+1)*batchSize].todense(),\
-                                                         y: y_train[batch_idx*batchSize:(batch_idx+1)*batchSize][np.newaxis].T})
+                                          feed_dict={X: X_train[batch_idx*trainParams['batchSize']:(batch_idx+1)*trainParams['batchSize']].todense(),\
+                                                         y: y_train[batch_idx*trainParams['batchSize']:(batch_idx+1)*trainParams['batchSize']][np.newaxis].T})
                 elbo_tracker += loss
 
             print "Epoch %d.  Negative ELBO: %.4f" %(epoch_idx, elbo_tracker/nBatches)        
@@ -86,7 +94,7 @@ def train_and_eval_bayesModel(X_train, X_test, y_train, y_test):
     print "Avg. Post Mean %.3f / Std. %.3f \n" %(final_params['mu'].mean(), np.exp(final_params['log_sigma']).mean())
 
 
-def train_and_eval_advRefPrior(X_train, X_test, y_train, y_test):
+def train_and_eval_advRefPrior(X_train, X_test, y_train, y_test, trainParams):
     input_d = X_train.shape[1]
 
     ### Make symbolic variables                                                                                                                                                                  
@@ -110,33 +118,31 @@ def train_and_eval_advRefPrior(X_train, X_test, y_train, y_test):
         + tf.reduce_mean(gauss2gauss_KLD(model_params['mu'], tf.exp(model_params['log_sigma']), prior_params['mu'], tf.exp(prior_params['log_sigma'])))
     advRP_obj = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(advRP_linear_model_out, y)) + tf.reduce_mean(log_prior_under_post)
 
-    n_epochs = 20
-    batchSize = 200
-    nBatches = X_train.shape[0]/batchSize
+    nBatches = X_train.shape[0]/trainParams['batchSize']
 
-    train_elbo = tf.train.AdamOptimizer(0.0003).minimize(negElbo, var_list=[model_params['mu'], model_params['log_sigma'], model_params['b']])
-    train_prior = tf.train.AdamOptimizer(0.0001).minimize(advRP_obj, var_list=[prior_params['mu'], prior_params['log_sigma']])
+    train_elbo = tf.train.AdamOptimizer(trainParams['postLR']).minimize(negElbo, var_list=[model_params['mu'], model_params['log_sigma'], model_params['b']])
+    train_prior = tf.train.AdamOptimizer(trainParams['priorLR']).minimize(advRP_obj, var_list=[prior_params['mu'], prior_params['log_sigma']])
 
     final_params = None
     with tf.Session() as session:
         tf.initialize_all_variables().run()
 
-        for epoch_idx in xrange(n_epochs):
+        for epoch_idx in xrange(trainParams['nEpochs']):
             elbo_tracker = 0.
             advRP_tracker = 0.
 
             ### update ELBO
             for batch_idx in xrange(nBatches):
                 _, loss = session.run([train_elbo, negElbo], \
-                                          feed_dict={X: X_train[batch_idx*batchSize:(batch_idx+1)*batchSize].todense(),\
-                                                         y: y_train[batch_idx*batchSize:(batch_idx+1)*batchSize][np.newaxis].T})
+                                          feed_dict={X: X_train[batch_idx*trainParams['batchSize']:(batch_idx+1)*trainParams['batchSize']].todense(),\
+                                                         y: y_train[batch_idx*trainParams['batchSize']:(batch_idx+1)*trainParams['batchSize']][np.newaxis].T})
                 elbo_tracker += loss
 
             ### update prior
             for batch_idx in xrange(nBatches):
                 _, loss = session.run([train_prior, advRP_obj], \
-                                          feed_dict={X: X_train[batch_idx*batchSize:(batch_idx+1)*batchSize].todense(),\
-                                                         y: y_train[batch_idx*batchSize:(batch_idx+1)*batchSize][np.newaxis].T})
+                                          feed_dict={X: X_train[batch_idx*trainParams['batchSize']:(batch_idx+1)*trainParams['batchSize']].todense(),\
+                                                         y: y_train[batch_idx*trainParams['batchSize']:(batch_idx+1)*trainParams['batchSize']][np.newaxis].T})
                 advRP_tracker += loss
 
             print "Epoch %d.  Negative ELBO: %.4f / Neg. Adv. Ref. Prior Obj.: %.4f" %(epoch_idx, elbo_tracker/nBatches, advRP_tracker/nBatches)
@@ -156,15 +162,23 @@ def train_and_eval_sklModel(X_train, X_test, y_train, y_test):
     model = linear_model.LogisticRegression()
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)
-
     print "SKL Logistic Regression: %.4f \n" %(accuracy_score(y_test, y_pred))
 
 
 if __name__ == '__main__':
 
-    X_train, X_test, y_train, y_test = load_data()
-    
-    #train_and_eval_sklModel(X_train, X_test, y_train, y_test)
-    #train_and_eval_bayesModel(X_train, X_test, y_train, y_test)
-    train_and_eval_advRefPrior(X_train, X_test, y_train, y_test)
+    datasets = {'Colon Cancer':('colon-cancer', None), 'Breast Cancer':('breast-cancer', None), 'Diabetes':('diabetes_scale', None), 'Leukemia':('leu', 'leu.t')} 
+    # 'Covertype':('covtype.libsvm.binary.scale', None)
+    trainParams = {'nEpochs':50, 'batchSize':10, 'postLR':0.0003, 'priorLR':0.0001}
 
+    for dataset in datasets.keys():
+
+        print "_________ Dataset: %s ___________ \n\n" %(dataset)
+        X_train, X_test, y_train, y_test = load_data(datasets[dataset])
+    
+        if dataset == "Leukemia": trainParams['batchSize']=1
+
+        train_and_eval_sklModel(X_train, X_test, y_train, y_test)
+        train_and_eval_bayesModel(X_train, X_test, y_train, y_test, trainParams)
+        train_and_eval_advRefPrior(X_train, X_test, y_train, y_test, trainParams)
+        
