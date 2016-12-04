@@ -11,7 +11,7 @@ def logistic(x):
 def gaussJeffPrior(x):
     return 1./x
 
-def compute_ref_approx(t=0, s=100, lr=0.1, rs=1000):
+def compute_ref_approx(t=20, s=100, lr=0.1, rs=1000):
     w = np.random.normal(size=(10,1))
     b = 0.
     for t_idx in xrange(t):
