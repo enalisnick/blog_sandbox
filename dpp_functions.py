@@ -7,46 +7,43 @@ def elem_sympoly(vals, k):
     """Uses Newton's identities to compute elementary symmetric polynomials."""
     N = vals.shape[0]
     E = np.zeros([k+1, N+1])
-    E[0,] = 1
+    E[0,:] = 1
     
-    for i in range(1, k+1):
-        for j in range(1, N+1):
+    for i in [a+1 for a in range(k)]:
+        for j in [a+1 for a in range(N)]:
             E[i,j] = E[i, j-1] + vals[j-1] * E[i-1, j-1]
     
-    return E[:,1:]
+    return E #[:,1:]
 
 
 def sample_k(vals, k):
     """
     """
-    N = vals.shape[0]
-    E = elem_sympoly(vals, k)[:,1:]
-    sample = np.zeros(N, dtype=int)
-    rem = k
+    E = elem_sympoly(vals, k) #[:,1:]
 
-    for elem, val in reversed(list(enumerate(vals))):
+    i = vals.shape[0]
+    S = np.zeros((k,), dtype=int)
+    remaining = k
 
-        # Check if we chose k elements
-        if not rem:
-            break
-            
-        # Compute conditional marginal of elem
-        marg = val * E[rem-1, elem-1] / E[rem, elem]
+    #for elem, val in reversed(list(enumerate(vals))):
+    while remaining > 0:
+
+        if i == remaining:
+            marg = 1.
+        else:
+            marg = vals[i-1] * E[remaining-1, i-1] / E[remaining, i];
 
         # Sample elem
         if np.random.rand() < marg:
-            sample[elem] = 1
-            rem -= 1
+            S[remaining-1] = i
+            remaining -= 1
         
-        # Check if all remaining elements will be chosen
-        if elem == rem:
-            sample[np.arange(rem)] = 1
-            break
+        i -= 1
 
-    return sample
+    return S
 
 
-def sample_from_dpp(item_vectors, k=None):
+def sample_from_dpp(item_vecs, k=None):
     """
     This function expects... 
     
@@ -58,12 +55,12 @@ def sample_from_dpp(item_vectors, k=None):
     sample: List containing indicies of selected items
 
     """
-    n = item_vectors.shape[0] # number of items in ground set
-    gram_mat = np.dot(item_vectors, item_vectors.T)
-    vals, vecs = eig(gram_mat)
+    n = item_vecs.shape[0] # number of items in ground set
+    gram_mat = np.dot(item_vecs, item_vecs.T)
+    vals, vecs = eig(gram_mat)    
     
     # k-DPP
-    if k > 0:
+    if k:
         index = sample_k(vals, k) # sample_k, need to return index
 
     # Sample set size
