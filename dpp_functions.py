@@ -44,6 +44,12 @@ def sample_k(vals, k):
 
 
 def sample_from_dpp(item_vecs, k=None):
+    gram_mat = np.dot(item_vecs, item_vecs.T)
+    vals, vecs = eig(gram_mat)
+    return sample_from_dpp_preDecomp(vals, vecs, k=k)
+
+
+def sample_from_dpp_preDecomp(vals, vecs, k=None):
     """
     This function expects... 
     
@@ -55,9 +61,7 @@ def sample_from_dpp(item_vecs, k=None):
     sample: List containing indicies of selected items
 
     """
-    n = item_vecs.shape[0] # number of items in ground set
-    gram_mat = np.dot(item_vecs, item_vecs.T)
-    vals, vecs = eig(gram_mat)    
+    n = vals.shape[0] # number of items in ground set
     
     # k-DPP
     if k:
